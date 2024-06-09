@@ -1,23 +1,33 @@
 const { Router } = require("express");
 
+const UsersController = require("../controllers/UsersController");
+
 const usersRoutes = Router();
 
-usersRoutes.get("/message/:id", (req, res) => {
-  const { id, user } = req.params;
+function appMiddleware(req, res, next) {
+  console.log("You passed thought middleware.");
 
-  res.send(`Message id ${id} for user ${user}`);
-});
+  if (!req.body.isAdmin) {
+    return res.status(401).json({ message: "User unauthorized." });
+  }
 
-usersRoutes.get("/", (req, res) => {
-  const { page, limit } = req.query;
+  next();
+}
 
-  res.send(`Page: ${page}. Show: ${limit}`);
-});
+const usersController = new UsersController();
 
-usersRoutes.post("/", (req, res) => {
-  const { name, email, password } = req.body;
+// usersRoutes.get("/message/:id", (req, res) => {
+//   const { id, user } = req.params;
 
-  res.json({ name, email, password })
-})
+//   res.send(`Message id ${id} for user ${user}`);
+// });
+
+// usersRoutes.get("/", (req, res) => {
+//   const { page, limit } = req.query;
+
+//   res.send(`Page: ${page}. Show: ${limit}`);
+// });
+
+usersRoutes.post("/", appMiddleware, usersController.create);
 
 module.exports = usersRoutes;
