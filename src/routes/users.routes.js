@@ -28,6 +28,7 @@ const usersController = new UsersController();
 //   res.send(`Page: ${page}. Show: ${limit}`);
 // });
 
-usersRoutes.post("/", appMiddleware, usersController.create);
+usersRoutes.post("/", usersController.create);
+usersRoutes.put("/:id", usersController.update);
 
 module.exports = usersRoutes;
