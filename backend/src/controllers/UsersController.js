@@ -3,7 +3,7 @@ const AppError = require("../utils/AppError");
 const sqliteConnection = require("../database/sqlite");
 
 class UsersController {
-  async create(req, res, next) {
+  async create(req, res) {
     const { name, email, password } = req.body;
 
     const database = await sqliteConnection();
@@ -20,7 +20,7 @@ class UsersController {
     return res.status(201).json();
   }
   
-  async update(req, res, next) {
+  async update(req, res) {
     const { name, email, password, old_password } = req.body;
     const { id } = req.params;
 
