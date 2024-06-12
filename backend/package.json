@@ -1,5 +1,5 @@
 {
-  "name": "first-nodejs-project",
+  "name": "notes-api",
   "version": "1.0.0",
   "description": "API developed in Explorer Rockeseat program.",
   "main": "src/server.js",
